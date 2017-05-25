@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class ContactTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
+  test "shouldn't save contact with incorrect email format" do
+    contact = Contact.new(email: "teste#teste.com")
+    assert_not contact.save, "Incorrect email format given"
+  end
+  
 end

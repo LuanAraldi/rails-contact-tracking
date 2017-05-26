@@ -13,7 +13,4 @@ class ContactTest < ActiveSupport::TestCase
     assert contact.save, "Correct email format given"
   end
 
-  
-
-
 end

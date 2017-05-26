@@ -1,3 +1,5 @@
 class Contact < ApplicationRecord
-  validates_format_of :email,:with => /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
+  validates :email,
+            format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/},
+            :allow_blank => true
 end

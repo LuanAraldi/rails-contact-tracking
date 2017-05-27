@@ -17,7 +17,10 @@ class AccessesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create access" do
     assert_difference('Access.count') do
-      post accesses_url, params: { access: {  } }
+      post accesses_url, params: { access: {
+          contact_id: "123456789",
+          url: "http://google.com"
+      } }
     end
 
     assert_redirected_to access_url(Access.last)
@@ -31,11 +34,6 @@ class AccessesControllerTest < ActionDispatch::IntegrationTest
   test "should get edit" do
     get edit_access_url(@access)
     assert_response :success
-  end
-
-  test "should update access" do
-    patch access_url(@access), params: { access: {  } }
-    assert_redirected_to access_url(@access)
   end
 
   test "should destroy access" do

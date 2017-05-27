@@ -1,5 +1,6 @@
 class AccessesController < ApplicationController
   before_action :set_access, only: [:show, :edit, :update, :destroy]
+  protect_from_forgery with: :null_session
 
   # GET /accesses
   # GET /accesses.json
@@ -17,14 +18,14 @@ class AccessesController < ApplicationController
     @access = Access.new
   end
 
-  # GET /accesses/1/edit
-  def edit
-  end
-
   # POST /accesses
   # POST /accesses.json
   def create
     @access = Access.new(access_params)
+
+    if !check_if_contact_exists(@access.contact_id)
+      create_new_contact(@access.contact_id)
+    end
 
     respond_to do |format|
       if @access.save
@@ -32,20 +33,6 @@ class AccessesController < ApplicationController
         format.json { render :show, status: :created, location: @access }
       else
         format.html { render :new }
-        format.json { render json: @access.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /accesses/1
-  # PATCH/PUT /accesses/1.json
-  def update
-    respond_to do |format|
-      if @access.update(access_params)
-        format.html { redirect_to @access, notice: 'Access was successfully updated.' }
-        format.json { render :show, status: :ok, location: @access }
-      else
-        format.html { render :edit }
         format.json { render json: @access.errors, status: :unprocessable_entity }
       end
     end
@@ -62,13 +49,23 @@ class AccessesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_access
       @access = Access.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def access_params
-      params.fetch(:access, {})
+      params.require(:access).permit(:url, :contact_id)
+    end
+
+    def check_if_contact_exists (contact_id)
+      Contact.exists?(contact_id)
+    end
+
+    def create_new_contact (contact_id)
+      contact = Contact.new(id: contact_id)
+      if !contact.save
+        format.html { render :new }
+        format.json { render json: contact.errors, status: :unprocessable_entity }
+      end
     end
 end

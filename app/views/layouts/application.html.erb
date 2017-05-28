@@ -10,6 +10,15 @@
   </head>
 
   <body>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">RD Dashboard</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><%= link_to 'Contatos', contacts_path %></li>
+          <li><%= link_to 'Acessos', accesses_path %></li>
+        </ul>
+      </div>
+    </nav>
     <%= yield %>
   </body>
 </html>

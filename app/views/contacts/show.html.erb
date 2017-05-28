@@ -1,4 +1,23 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <h3>Contato <%= @contact.id %></h3>
 
-<%= link_to 'Edit', edit_contact_path(@contact) %> |
-<%= link_to 'Back', contacts_path %>
+  <table class="responsive-table striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>URL</th>
+      <th>Data de Acesso</th>
+    </tr>
+    </thead>
+
+    <tbody>
+      <% @contact.accesses.each do |access| %>
+        <tr>
+          <th><%= access.id %></th>
+          <th><%= access.url %></th>
+          <th><%= access.created_at %></th>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

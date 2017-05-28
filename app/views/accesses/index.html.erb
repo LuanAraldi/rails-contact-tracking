@@ -1,25 +1,23 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Accesses</h1>
-
-<table>
-  <thead>
+<div class="container">
+  <table class="responsive-table striped">
+    <thead>
     <tr>
-      <th colspan="3"></th>
+      <th>ID</th>
+      <th>Contato</th>
+      <th>URL</th>
+      <th>Data de Acesso</th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
     <% @accesses.each do |access| %>
-      <tr>
-        <td><%= link_to 'Show', access %></td>
-        <td><%= link_to 'Edit', edit_access_path(access) %></td>
-        <td><%= link_to 'Destroy', access, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <tr>
+          <th><%= access.id %></th>
+          <th><%= access.contact_id %></th>
+          <th><%= access.url %></th>
+          <th><%= access.created_at %></th>
+        </tr>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Access', new_access_path %>
+    </tbody>
+  </table>
+</div>
